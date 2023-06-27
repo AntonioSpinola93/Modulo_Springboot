@@ -22,9 +22,13 @@ public class Esercizio2 {
         return (ResponseEntity.ok(mealList));
     }
     @GetMapping(value = "/get/meal/{name}")
-    public ResponseEntity<?>getMealList(@PathVariable("name")String  name) {
+    public ResponseEntity<?>getMealList(@PathVariable String  name) {
+        /**
+         @param .equalsIgnoreCase : come .equals ma ignora la divergenza di sintassi tra maiuscole e minuscole dei caratteri
+         */
         Meal foundMeal = null;
         for (Meal meal : mealList) {
+
             if (meal.getName().equalsIgnoreCase(name)) {
                 foundMeal = meal;
                 break;
@@ -32,16 +36,16 @@ public class Esercizio2 {
 
             }
         if (foundMeal != null) {
-            return ResponseEntity.ok(foundMeal); // Return the found Meal object
+            return ResponseEntity.ok(foundMeal);
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if no matching meal found
+            return ResponseEntity.notFound().build();
 
         }
 
 
     }
     @GetMapping(value = "/get/meal/description-match/{phrase}")
-    public ResponseEntity<?>getMealDescrpt(@PathVariable("phrase")String phrase){
+    public ResponseEntity<?>getMealDescrpt(@PathVariable String phrase){
         Meal foundDescrpt=null;
         for(Meal meal:mealList){
             if (meal.getDescription().contains(phrase)){
@@ -59,7 +63,7 @@ public class Esercizio2 {
 
     @GetMapping(value = "/meal/price")
 
-    public ResponseEntity<?>getPriceMeal(@RequestParam("min") Double minPrice,@RequestParam("max") Double maxPrice){
+    public ResponseEntity<?>getPriceMeal(@RequestParam ("min") Double minPrice,@RequestParam("max") Double maxPrice){
 
         List<Meal> mealsInPriceRange = new ArrayList<>();
         for (Meal meal : mealList){
@@ -68,9 +72,9 @@ public class Esercizio2 {
             }
         }
         if (!mealsInPriceRange.isEmpty()) {
-            return ResponseEntity.ok(mealsInPriceRange); // Return the list of Meals within the price range
+            return ResponseEntity.ok(mealsInPriceRange);
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if no meals found in the specified price range
+            return ResponseEntity.notFound().build();
         }
 
     }

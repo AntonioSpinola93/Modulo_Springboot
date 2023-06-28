@@ -14,12 +14,12 @@ public class Esercizio3 {
         return ResponseEntity.ok(meals);
     }
 
-    @PutMapping(value = "/put/meal")
+    @PostMapping(value = "/put/meal")
     public ResponseEntity<String>putMeal(@RequestBody Meal meal){
         this.meals.add(meal);
         return ResponseEntity.ok("Meal added");
     }
-    @PostMapping(value = "/post/replace-meal")
+    @PutMapping(value = "/post/replace-meal")
     public ResponseEntity<String>postMeal(@RequestBody Meal meal){
         this.meals.removeIf(m -> m.getName().equals(meal.getName()));
         this.meals.add(meal);
